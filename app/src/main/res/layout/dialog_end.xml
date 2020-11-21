@@ -47,7 +47,7 @@
         android:src="@drawable/popup3"
         />
     <ImageView
-        android:id="@+id/txt3"
+        android:id="@+id/btn_depart"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_below="@id/txt2"
@@ -65,7 +65,7 @@
         android:src="@drawable/popup6"
         />
     <ImageView
-        android:id="@+id/txt5"
+        android:id="@+id/btn_cancel"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_alignTop="@id/txt4"
@@ -83,7 +83,7 @@
         android:src="@drawable/popup10"
         />
     <ImageView
-        android:id="@+id/txt6"
+        android:id="@+id/btn_dest"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_below="@id/txt7"
@@ -95,7 +95,7 @@
         android:id="@+id/txt9"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_below="@id/txt3"
+        android:layout_below="@id/btn_depart"
         android:layout_toLeftOf="@+id/txt4"
         android:gravity="center"
         android:src="@drawable/popup5"
@@ -113,8 +113,8 @@
         android:id="@+id/txt11"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_below="@id/txt6"
-        android:layout_toRightOf="@+id/txt5"
+        android:layout_below="@id/btn_dest"
+        android:layout_toRightOf="@+id/btn_cancel"
         android:gravity="center"
         android:src="@drawable/popup8"
         />

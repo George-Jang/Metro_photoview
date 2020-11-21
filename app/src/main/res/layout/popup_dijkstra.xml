@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="300dp"
+
+    android:layout_height="wrap_content"
+
+    android:orientation="vertical">
+
+
+
+    <TextView
+
+        android:layout_width="match_parent"
+
+        android:layout_height="40dp"
+
+        android:background="#424242"
+
+        android:gravity="center"
+
+        android:text="경로 계산"
+
+        android:textColor="#ffffff"
+
+        android:textSize="16dp"
+
+        android:textStyle="bold" />
+
+
+
+    <TextView
+
+        android:id="@+id/depart"
+
+        android:layout_width="150dp"
+
+        android:layout_height="wrap_content"
+
+        android:layout_marginBottom="60dp"
+
+        android:layout_marginTop="60dp"
+
+        android:gravity="center"
+
+        android:text="출발역"
+
+        android:textSize="16dp" />
+
+    <TextView
+
+        android:id="@+id/dest"
+
+        android:layout_width="150dp"
+
+        android:layout_height="wrap_content"
+
+        android:layout_marginBottom="60dp"
+
+        android:layout_marginTop="60dp"
+
+        android:layout_toRightOf="@+id/depart"
+
+        android:gravity="center"
+
+        android:text="도착역"
+
+        android:textSize="16dp" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_above="@id/route"
+        >
+        <RadioButton
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/mode1"
+            android:layout_marginLeft="15dp"
+            android:text="시간"/>
+        <RadioButton
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="거리"
+            android:id="@+id/mode2"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="비용"
+            android:id="@+id/mode3"/>
+
+
+    </RadioGroup>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/dijk_value"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/radioGroup1"
+        android:text=""
+        android:gravity="center"
+        />
+
+
+
+
+    <TextView
+
+        android:id="@+id/route"
+
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/dest"
+
+        android:layout_marginTop="60dp"
+
+        android:layout_marginBottom="60dp"
+
+        android:gravity="center"
+
+        android:text=""
+
+        android:textSize="16dp" />
+
+    <TextView
+
+            android:id="@+id/btn_cancel2"
+
+            android:layout_width="150dp"
+
+            android:layout_height="40dp"
+
+            android:layout_below="@id/route"
+
+            android:layout_weight="1"
+
+            android:background="#424242"
+
+            android:clickable="true"
+
+            android:gravity="center"
+
+            android:text="취소"
+
+            android:textColor="#ffffff"
+
+            android:textSize="16dp"
+
+            android:textStyle="bold" />
+
+
+
+        <TextView
+
+            android:id="@+id/btn_ok"
+
+            android:layout_width="150dp"
+
+            android:layout_height="40dp"
+
+            android:layout_weight="1"
+
+            android:layout_below="@id/route"
+
+            android:layout_toRightOf="@id/btn_cancel2"
+
+            android:background="#424242"
+
+            android:clickable="true"
+
+            android:gravity="center"
+
+            android:text="확인"
+
+            android:textColor="#ffffff"
+
+            android:textSize="16dp"
+
+            android:textStyle="bold" />
+
+
+
+</RelativeLayout>

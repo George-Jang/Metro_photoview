@@ -13,6 +13,7 @@ public class Dijkstra {
             ,"606","607","608","609","610","611","612","613","614","615","616","617","618","619","620","621"
             ,"622","701","702","703","704","705","706","707","801","802","803","804","805","806","901","902"
             ,"903","904"};
+    private int value;
 
     public Dijkstra(int n, int mode) {
         super();
@@ -59,13 +60,15 @@ public class Dijkstra {
         return ( new StringBuffer(s) ).reverse().toString();
     }
 
-    public void algorithm(String a,String b) {
+    public StringBuilder algorithm(String a,String b) {
         boolean[] visited = new boolean[n]; //각 꼭지점의 방문 여부
         int distance[] = new int[n]; //시작 꼭지점에서부터 각 꼭지점까지의 거리
+        StringBuilder route_return = new StringBuilder();
 
         //시작 꼭지점 a에서부터 각 꼭지점까지의 모든 거리 초기화
         for(int i=0; i<n; i++) {
-
+            //이산수학 교재 251쪽에서는 ∞로 초기화했지만
+            //여기에서는 int형의 가장 큰 값 2147483647로 초기화한다.
             distance[i] = Integer.MAX_VALUE;
         }
 
@@ -88,6 +91,7 @@ public class Dijkstra {
         for(int i=0; i<n-1; i++) {
             int minDistance = Integer.MAX_VALUE; //최단거리 minDistance에 일단 가장 큰 정수로 저장하고,
             int minVertex = -1; //그 거리값이 있는 인덱스 minIndex에 -1을 저장해둔다.
+            //System.out.println(minVertex);
             for(int j=0; j<n; j++) {
                 //방문하지 않았고 거리를 갱신한 꼭지점 중에서 가장 가까운 거리와 가장 가까운 꼭지점을 구한다.
                 if(!visited[j] && distance[j]!=Integer.MAX_VALUE) {
@@ -119,12 +123,15 @@ public class Dijkstra {
                 switch (mode) {
                     case 1:
                         System.out.println("시간: " + distance[i]);
+                        value = distance[i];
                         break;
                     case 2:
                         System.out.println("거리: " + distance[i]);
+                        value = distance[i];
                         break;
                     case 3:
                         System.out.println("비용: " + distance[i]);
+                        value = distance[i];
                         break;
                 }
                 int index = i;
@@ -135,7 +142,13 @@ public class Dijkstra {
                 }
                 StringBuilder sb = new StringBuilder(route);
                 System.out.println(sb.reverse() + vertex[i]);
+                route_return = new StringBuilder(sb+ vertex[i]);
             }
         }
+        return route_return;
+    }
+
+    public int getValue(){
+        return value;
     }
 }

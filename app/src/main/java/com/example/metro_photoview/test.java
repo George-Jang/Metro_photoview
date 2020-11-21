@@ -3,6 +3,9 @@ package com.example.metro_photoview;
 import java.util.Scanner;
 
 public class test{
+
+    static Dijkstra d = new Dijkstra(111, 1);
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -15,7 +18,7 @@ public class test{
         System.out.println("3. 비용");
         mode = Integer.parseInt(sc.nextLine());
 
-        Dijkstra d = new Dijkstra(111, mode);
+        //Dijkstra d = new Dijkstra(111, 1);
 
         System.out.println("출발역을 입력해주세요: ");
         depart = sc.nextLine();
@@ -23,10 +26,14 @@ public class test{
         System.out.println("도착역을 입력해주세요: ");
         dest = sc.nextLine();
 
+        //input();
 
+        //시작점 a에서부터의 최단거리 및 최단경로 출력
+        d.algorithm(depart,dest);
 
-        //인접한 두 꼭지점 사이의 가중치 주입
+    }
 
+    public static void input(){//인접한 두 꼭지점 사이의 가중치 주입
         d.input("101","102", 200, 500, 200);
         d.input("102","103", 300, 400, 300);
         d.input("103","104", 1000, 600, 500);
@@ -166,10 +173,6 @@ public class test{
         d.input("702","904", 500, 250, 700);
         d.input("904","621", 250, 650, 650);
         d.input("621","211", 300, 400, 440);
-
-        //시작점 a에서부터의 최단거리 및 최단경로 출력
-        d.algorithm(depart,dest);
-
     }
 
 }
