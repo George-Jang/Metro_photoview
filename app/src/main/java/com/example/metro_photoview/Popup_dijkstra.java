@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-public class Popup_dijkstra extends Dialog implements View.OnClickListener  { // 도넛모양에서의 클릭 이벤트들이 벌어지는 곳입니다. 여기에서 이벤트 처리하세요.
+public class Popup_dijkstra extends Dialog implements View.OnClickListener  {
 
     private Context mContext;
 

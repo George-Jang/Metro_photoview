@@ -76,12 +76,18 @@ public class EndDialog extends Dialog implements View.OnClickListener{ //도넛�
             case R.id.btn_depart:
 
                 depart_count ++;
+                if(depart_count>1){
+                    depart_count=0;
+                }
                 dismiss();
                 break;
 
             case R.id.btn_dest:
 
                 dest_count ++;
+                if(dest_count>1){
+                    dest_count=0;
+                }
                 if(depart_count==1 && dest_count==1){
                     depart_count=0;
                     dest_count=0;
@@ -97,7 +103,6 @@ public class EndDialog extends Dialog implements View.OnClickListener{ //도넛�
                     dest = "";
                     route = "";
                 }
-                //출발지 두번 클릭했을 때 작동 안되는 문제 있음
 
                 dismiss();
                 break;
