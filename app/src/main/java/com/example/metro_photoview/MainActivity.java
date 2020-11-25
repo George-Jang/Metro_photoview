@@ -2,31 +2,28 @@ package com.example.metro_photoview;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Matrix;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.chrisbanes.photoview.OnPhotoTapListener;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.github.chrisbanes.photoview.PhotoViewAttacher;
 
+
 import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
-class Station_info{
-
-    public String msg;
-
-
-}
-
-
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -35,29 +32,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button btn_end;
     private EndDialog mEndDialog;
-    public Station_info[] st; // 사용 안해도 될듯
-    public int depart=0,dest=0;
-
+    public int depart=0,dest=0,station = 0;
+    int departCount=0;
+    int REQUEST_CODE_POPUP_END = 10;
+    int REQUEST_CODE_POPUP_DJK = 10;
+    int resultcode;
+    int reset_code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mEndDialog = new EndDialog(this);
-
-
         PhotoView photoView = (PhotoView) findViewById(R.id.photo_view);
         photoView.setImageResource(R.drawable.metromain);
         PhotoViewAttacher mAttacher = new PhotoViewAttacher(photoView);
+
+        mAttacher.setScaleType(ImageView.ScaleType.CENTER_CROP);
         mAttacher.setOnPhotoTapListener(new OnPhotoTapListener() {
             @Override
             public void onPhotoTap(ImageView view, float x, float y) {
                 //String msg = "터치 영역 : " +x+" / " +y;
-
                 //Toast. makeText(MainActivity. this, msg, Toast.LENGTH_SHORT ).show();
                 Station_Click(x,y);
-
             }
         });
 
@@ -69,40 +66,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void Station_Click(float x, float y){
 
-        Station_info[] st = new Station_info[111];
         int s_num = 0;
-
-        for(int i=0; i<111; i++) {
-            st[i] = new Station_info();
-        }
+        int station_check=0;
         s_num = Check_station(x,y);
 
         if( (101<=s_num && s_num<=123) | (201<=s_num && s_num<=217) | (301<=s_num && s_num<=308) | (401<=s_num && s_num<=417) |
         (501<=s_num && s_num<=507) | (601<=s_num && s_num<=622) | (701<=s_num && s_num<=707) | (801<=s_num && s_num<=806)
         | (901<=s_num && s_num<=904) ){
-            //Toast.makeText(MainActivity.this, "" + s_num, Toast.LENGTH_SHORT).show();
-            //mEndDialog.setStation(s_num);
-            if(depart==0 && dest==0){
-                depart = s_num;
-            }
-            else if(depart!=0 && dest==0){
-                dest = s_num;
-                String a = Integer.toString(depart);
-                String b = Integer.toString(dest);
-                mEndDialog.setStation(a,b);
-                depart = 0;
-                dest = 0;
-            }
 
-            mEndDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            mEndDialog.setCancelable(false);
-            mEndDialog.show();
+            station_check=1;
+
+            Intent intent = new Intent(this,EndDialog.class);
+            intent.putExtra("station check",station_check);
+            intent.putExtra("station",s_num);
+
+            intent.putExtra("depart_station",depart);
+            intent.putExtra("dest_station",dest);
+            startActivityForResult(intent,REQUEST_CODE_POPUP_END);
         }
-
-        // 함수를 따로 만들어 역을 구별하게 함.
-        // 출발지, 도착지 함수 구현(역마다 다른 플래그) count 값을 두어 count==2가 될 시 다익스트라 실행
-
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent  data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQUEST_CODE_POPUP_END) {
+            if(resultCode == 1) {
+                this.resultcode = resultcode;
+                depart = data.getExtras().getInt("depart_station");
+                reset_code = data.getExtras().getInt("reset_code");
+                if(reset_code == 1){
+                    depart =0;
+                    dest=0;
+                    reset_code=0;
+                }
+            }
+            else if(resultCode == 2) {
+                this.resultcode = resultcode;
+                dest = data.getExtras().getInt("dest_station");
+                reset_code = data.getExtras().getInt("reset_code");
+                if(reset_code == 1){
+                    depart =0;
+                    dest=0;
+                    reset_code=0;
+                }
+            }
+        }
+    }
+
 
     public int Check_station(float x, float y){ // 역 체크해주는 함수
 

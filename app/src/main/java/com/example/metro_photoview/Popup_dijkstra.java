@@ -1,12 +1,16 @@
 package com.example.metro_photoview;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.view.View;
 
+import android.view.Window;
 import android.widget.Button;
 import android.content.Context;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -16,8 +20,10 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 
-public class Popup_dijkstra extends Dialog implements View.OnClickListener  {
+
+public class Popup_dijkstra extends Activity implements View.OnClickListener  {
 
     private Context mContext;
 
@@ -33,42 +39,38 @@ public class Popup_dijkstra extends Dialog implements View.OnClickListener  {
     private TextView value; // 최단거리/비용/시간
     private RadioGroup radioGroup;
     private RadioButton mode1,mode2,mode3;
+    private ImageView loading;
 
     private int mode;
-
-    public Popup_dijkstra(@NonNull Context context) {
-        super(context);
-        mContext = context;
-    }
-
-    public void setStation(String depart, String dest){
-        this.depart = depart;
-        this.dest = dest;
-    }
-
-    public void setRoute(String route){
-        this.route = route;
-    }
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.popup_dijkstra);
+        getWindow().setBackgroundDrawableResource(android.R.color.white);
 
         btn_cancel = (TextView)findViewById(R.id.btn_cancel2);
-        btn_ok = (TextView)findViewById(R.id.btn_ok);
         depart_view = (TextView)findViewById(R.id.depart);
         dest_view = (TextView)findViewById(R.id.dest);
         route_view = (TextView)findViewById(R.id.route);
         value = (TextView)findViewById(R.id.dijk_value);
+        loading = (ImageView)findViewById(R.id.loading);
 
         radioGroup = (RadioGroup)findViewById(R.id.radioGroup1);
         radioGroup.setOnCheckedChangeListener(radioGroupButtonChangeListener);
 
         btn_cancel.setOnClickListener(this);
-        btn_ok.setOnClickListener(this);
+
+        Glide.with(this).load(R.drawable.giphy).into(loading);
+
+        Intent intent = getIntent();
+
+        depart = Integer.toString(intent.getExtras().getInt("depart"));
+        dest = Integer.toString(intent.getExtras().getInt("dest"));
+
         depart_view.setText("출발역\n" + depart);
         dest_view.setText("도착역\n" + dest);
 
@@ -80,14 +82,17 @@ public class Popup_dijkstra extends Dialog implements View.OnClickListener  {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_cancel2:
-                dismiss();
+                //dismiss();
+                finish();
                 break;
 
-            case R.id.btn_ok:
+            /*case R.id.btn_ok:
                 //((MainActivity) mContext).finish(); 앱 종료버튼
-                break;
+                break;*/
         }
     }
+
+
 
     RadioGroup.OnCheckedChangeListener radioGroupButtonChangeListener = new RadioGroup.OnCheckedChangeListener() { // 라디오버튼 리스너니까 신경x
 
